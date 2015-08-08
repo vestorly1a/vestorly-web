@@ -22,6 +22,14 @@
         Vestorly.getArticle(5, query, function(data) {
           var articles = data['articles'];
           for (var i = 0; i < articles.length; ++i) {
+            console.log(articles[i]);
+
+            var articleTitle = document.createElement('div');
+            articleTitle.setAttribute('class', 'articleTitle');
+            var articleTitleText = document.createTextNode(
+                articles[i].title);
+            articleTitle.appendChild(articleTitleText);
+
             var contentArticle = document.createElement('div');
             contentArticle.setAttribute('class', 'contentArticle');
             var contentArticleText = document.createTextNode(
@@ -29,10 +37,9 @@
             contentArticle.appendChild(contentArticleText);
             var hr = document.createElement('hr');
 
-
+            articlesSection.appendChild(articleTitle);
             articlesSection.appendChild(contentArticle);
             articlesSection.appendChild(hr);
-            console.log('hit');
           }
         });
         return false;
