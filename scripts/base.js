@@ -4,9 +4,8 @@
  * @author Alvin Lin (alvin.lin@stuypulse.com)
  */
 
-String.prototype.count = function(search) {
-    var m = this.match(new RegExp(search.toString().replace(/(?=[.\\+*?[^\]$(){}\|])/g, "\\"), "g"));
-    return m ? m.length:0;
+String.prototype.count = function(s1) {
+    return (this.length - this.replace(new RegExp(s1, "gi"), '').length) / s1.length;
 }
 
 function parse(text) {
@@ -31,11 +30,10 @@ function display(number, query, sort_criteria) {
     var articlesQueue = new PriorityQueue({
         comparator: function(a, b) {
           var searchTerms = getQueryTerms();
-          var aHits = 0;
-          var bHits = 0;
+
           // The original query counts more than historical queries.
-          aHits += a.body.count(query) * 5;
-          bHits += b.body.count(query) * 5;
+          var aHits = a.title.count(query) * 100;
+          var bHits = b.title.count(query) * 100;
 
           if (searchTerms) {
             for (var i = 0; i < searchTerms.length; ++i) {
@@ -43,7 +41,8 @@ function display(number, query, sort_criteria) {
               bHits += b.body.count(searchTerms[i]);
             }
           }
-          return aHits - bHits;
+
+          return bHits - aHits;
         }
     });
     for (var i = 0; i < articles.length; ++i) {
