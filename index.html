@@ -11,6 +11,7 @@
 
     <script src="bower_components/async/dist/async.min.js"></script>
     <script src="scripts/jquery-1.11.3.min.js"></script>
+    <script src='scripts/base.js'></script>
     <script src="scripts/Vestorly.js"></script>
     <script>
       Vestorly.getSessionKey();
@@ -43,7 +44,7 @@
             var contentArticle = document.createElement('div');
             contentArticle.setAttribute('class', 'contentArticle');
             var contentArticleText = document.createTextNode(
-                articles[i].body);
+                parse(articles[i].body));
             contentArticle.appendChild(contentArticleText);
             var hr = document.createElement('hr');
 
