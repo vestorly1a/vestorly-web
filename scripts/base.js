@@ -4,8 +4,12 @@
  * @author Alvin Lin (alvin.lin@stuypulse.com)
  */
 
+String.prototype.count = function(search) {
+    var m = this.match(new RegExp(search.toString().replace(/(?=[.\\+*?[^\]$(){}\|])/g, "\\"), "g"));
+    return m ? m.length:0;
+}
+
 function parse(text) {
-  console.log(text);
   return text.replace("&nbsp;", " ")
              .replace(/&#160;/g, " ")
              .replace(/&#8217;/g, "'")
@@ -24,8 +28,24 @@ function display(number, query) {
       articlesSection.innerHTML = "No results found. Try a different query.";
     }
 
+    var articlesQueue = new PriorityQueue({
+        comparator: function(a, b) {
+          var searchTerms = getQueryTerms();
+          var aHits = 0;
+          var bHits = 0;
+          for (var i = 0; i < searchTerms.length; ++i) {
+            aHits += a.body.count(searchTerms[i]);
+            bHits += b.body.count(searchTerms[i]);
+          }
+          return aHits - bHits;
+        }
+    });
     for (var i = 0; i < articles.length; ++i) {
-      console.log(articles[i]);
+      articlesQueue.queue(articles[i]);
+    }
+
+    while (articlesQueue.length != 0) {
+      var currentArticle = articlesQueue.dequeue();
 
       var contentArticle = document.createElement('div');
       contentArticle.setAttribute('class', 'contentArticle');
@@ -35,34 +55,39 @@ function display(number, query) {
       contentArticle.appendChild(articleContainer);
       articlesSection.appendChild(contentArticle);
 
-      if (articles[i].image_url) {
+      if (currentArticle.image_url) {
+        var articleImageLink = document.createElement('a');
+        articleImageLink.setAttribute(
+            'href', currentArticle.external_url_source);
+        articleContainer.appendChild(articleImageLink);
+
         var articleImage = document.createElement('img');
         articleImage.setAttribute(
-            'src', 'https:' + articles[i].image_url);
+            'src', 'https:' + currentArticle.image_url);
         articleImage.setAttribute('class', 'articleImage');
-        articleContainer.appendChild(articleImage);
+        articleImageLink.appendChild(articleImage);
       }
 
       var articleTitle = document.createElement('div');
       articleTitle.setAttribute('class', 'articleTitle');
       var articleTitleText = document.createTextNode(
-          parse(articles[i].title));
+          parse(currentArticle.title));
       articleTitle.appendChild(articleTitleText);
       articleContainer.appendChild(articleTitle);
 
       var articleDetail = document.createElement('div');
       articleDetail.setAttribute('class', 'articleDetail');
       var articleDetailText = document.createTextNode(
-          parse(articles[i].body));
+          parse(currentArticle.body));
       contentArticle.appendChild(articleDetailText);
       articleDetail.appendChild(articleDetailText);
       articleContainer.appendChild(articleDetail);
 
       var articleSourceLink = document.createElement('a');
       articleSourceLink.setAttribute(
-          'href', articles[i].external_url_source);
+          'href', currentArticle.external_url_source);
       var articleSourceLinkText = document.createTextNode(
-          "Sourced from: " + parse(articles[i].external_url_source));
+          "Sourced from: " + parse(currentArticle.external_url_source));
       articleSourceLink.appendChild(articleSourceLinkText);
       articleContainer.appendChild(articleSourceLink);
 
@@ -70,4 +95,21 @@ function display(number, query) {
       articlesSection.appendChild(hr);
     }
   });
+}
+
+function getQueryTerms() {
+  return JSON.parse(docCookies.getItem('queries'));
+}
+
+function recordQuery(query) {
+  var queries = docCookies.getItem('queries');
+  console.log(queries);
+  if (queries) {
+    queries = JSON.parse(queries)
+    queries.push(query);
+    queries = JSON.stringify(queries);
+  } else {
+    queries = JSON.stringify([query]);
+  }
+  docCookies.setItem('queries', queries, Infinity);
 }

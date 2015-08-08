@@ -8,18 +8,23 @@
     <link rel="stylesheet" href="styles/styles.css">
 
     <script src="bower_components/async/dist/async.min.js"></script>
+    <script src='scripts/cookies.js'></script>
+    <script src='scripts/priority-queue.min.js'></script>
     <script src="scripts/jquery-1.11.3.min.js"></script>
     <script src='scripts/base.js'></script>
     <script src="scripts/Vestorly.js"></script>
     <script>
       Vestorly.getSessionKey(function() {
-        display(15, "");
+        display(10, "");
       });
       function my() {
         var query = document.getElementsByClassName('searchBar')[0].value;
-        display(15, query);
+        display(100, query);
+        recordQuery(query);
+
         return false;
       }
+
   </script>
   </head>
   <body>
