@@ -95,7 +95,7 @@ function display(number, query, sort_criteria) {
           'href', currentArticle.external_url);
       articleSourceLink.setAttribute('class',"sourceLink");
       var articleSourceLinkText = document.createTextNode(
-          "Sourced from: " + parse(currentArticle.external_url));
+          "Source");
       articleSourceLink.appendChild(articleSourceLinkText);
       articleContainer.appendChild(articleSourceLink);
     }
