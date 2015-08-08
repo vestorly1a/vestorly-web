@@ -21,6 +21,11 @@
         articlesSection.innerHTML = "";
         Vestorly.getArticle(5, query, function(data) {
           var articles = data['articles'];
+
+          if (articles.length == 0) {
+            articlesSection.innerHTML = "No results found. Try a different query.";
+          }
+
           for (var i = 0; i < articles.length; ++i) {
             console.log(articles[i]);
 
