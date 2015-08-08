@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,14 +6,12 @@
     <title>Vestorly</title>
     <link rel="stylesheet" href="https://d1vr3psldp6mdy.cloudfront.net/assets/labs-00989967333c6740139cd05ca46c48a1.css" data-name="app-styles">
     <link rel="stylesheet" href="styles/styles.css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic" rel="stylesheet" type="text/css">
 
     <script src="bower_components/async/dist/async.min.js"></script>
     <script src="scripts/jquery-1.11.3.min.js"></script>
     <script src="scripts/Vestorly.js"></script>
     <script>
       Vestorly.getSessionKey();
-
       function my() {
         var query = document.getElementsByClassName('searchBar')[0].value;
         var articlesSection = document.getElementById('articles');
@@ -28,8 +25,6 @@
                 articles[i].body);
             contentArticle.appendChild(contentArticleText);
             var hr = document.createElement('hr');
-
-
             articlesSection.appendChild(contentArticle);
             articlesSection.appendChild(hr);
             console.log('hit');
