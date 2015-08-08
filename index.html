@@ -12,21 +12,28 @@
     <script src="bower_components/async/dist/async.min.js"></script>
     <script src="scripts/jquery-1.11.3.min.js"></script>
     <script src="scripts/Vestorly.js"></script>
-            <script>
+    <script>
+      Vestorly.getSessionKey();
 
-            Vestorly.getSessionKey();
-
-            function my() {
-
-            console.log('test');
-              var query = document.getElementsByClassName('searchBar')[0].value;
-              var articlesSection = document.getElementById('articles');
-              Vestorly.getArticle(5, query, function(data) {
-                console.log(data);
-                articlesSection.innerHTML(data);
-              });
-            }
-          </script>
+      function my() {
+        var query = document.getElementsByClassName('searchBar')[0].value;
+        var articlesSection = document.getElementById('articles');
+        articlesSection.innerHTML = "";
+        Vestorly.getArticle(5, query, function(data) {
+          var articles = data['articles'];
+          console.log('hit');
+          for (var i = 0; i < articles.length; ++i) {
+            var contentArticle = document.createElement('div');
+            contentArticle.setAttribute('class', 'contentArticle');
+            var contentArticleText = document.createTextNode(
+                articles[i].body);
+            contentArticle.appendChild(contentArticleText);
+            articlesSection.appendChild(contentArticle);
+          }
+        });
+        return false;
+      }
+  </script>
   </head>
   <body>
     <div class="header">
@@ -40,12 +47,13 @@
           <a href="#" class="tabBar active">Home</a>
           <a href="#" class="tabBar">Recent Post</a>
           <a href="#" class="tabBar">Treding</a>
-          <form class="searchComponent" >
+          <form class="searchComponent" onsubmit="my(); return false;">
             <input type="text"
                    name="search"
+                   id="searchBar"
                    class="searchBar"
                    placeholder="Search here">
-            <img src='image/search.png' type="submit" name="search" class="buttonSearch" onclick="my()">
+            <img src='image/search.png' type="submit" name="search" class="buttonSearch">
 
           </form>
         </div>

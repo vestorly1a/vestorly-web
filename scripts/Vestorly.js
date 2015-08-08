@@ -25,13 +25,11 @@ Vestorly.CREDENTIALS = {
 Vestorly.BASE_URL = 'https://staging.vestorly.com/api/v2';
 
 Vestorly.getSessionKey = function() {
-  $.ajaxSetup({async: false});
   $.post(Vestorly.BASE_URL +
          '/sessions?username=hackathon04%40gmail.com&password=T4ZXmdYv',
          {},
          function(response, status) {
     Vestorly.SESSION_KEY = response['vestorly-auth'];
-    $.ajaxSetup({async: true});
   });
 };
 
