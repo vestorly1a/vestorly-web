@@ -21,14 +21,18 @@
         articlesSection.innerHTML = "";
         Vestorly.getArticle(5, query, function(data) {
           var articles = data['articles'];
-          console.log('hit');
           for (var i = 0; i < articles.length; ++i) {
             var contentArticle = document.createElement('div');
             contentArticle.setAttribute('class', 'contentArticle');
             var contentArticleText = document.createTextNode(
                 articles[i].body);
             contentArticle.appendChild(contentArticleText);
+            var hr = document.createElement('hr');
+
+
             articlesSection.appendChild(contentArticle);
+            articlesSection.appendChild(hr);
+            console.log('hit');
           }
         });
         return false;
@@ -59,6 +63,8 @@
         </div>
       </div>
     </div>
+
+    <br /><br />
 
     <div id='articles'>
       <div class="contentArticle">

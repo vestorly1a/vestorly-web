@@ -41,7 +41,7 @@ Vestorly.getArticle = function(number, query, callback) {
         {
           vestorly_auth: Vestorly.SESSION_KEY,
           limit: 4,
-          text_query: 'python'
+          text_query: query
         },
         function(response, status) {
     callback(response);
