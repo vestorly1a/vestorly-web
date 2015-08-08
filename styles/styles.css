@@ -3,6 +3,14 @@ body {
 
 }
 
+a, a:visited {
+  color: green;
+}
+
+a:hover {
+  color: blue;
+}
+
 hr {
   width: 50%;
   height: 1px;
@@ -57,10 +65,12 @@ hr {
   width: 25px;
   height: 25px;
 }
+
 .searchBar{
   border:none;
   margin-left: 10px;
 }
+
 .articleImage{
   width:100%;
 }

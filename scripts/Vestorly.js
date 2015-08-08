@@ -24,12 +24,13 @@ Vestorly.CREDENTIALS = {
 
 Vestorly.BASE_URL = 'https://staging.vestorly.com/api/v2';
 
-Vestorly.getSessionKey = function() {
+Vestorly.getSessionKey = function(callback) {
   $.post(Vestorly.BASE_URL +
          '/sessions?username=hackathon04%40gmail.com&password=T4ZXmdYv',
          {},
          function(response, status) {
     Vestorly.SESSION_KEY = response['vestorly-auth'];
+    callback();
   });
 };
 
@@ -40,7 +41,7 @@ Vestorly.getArticle = function(number, query, callback) {
   $.get(Vestorly.BASE_URL + '/articles',
         {
           vestorly_auth: Vestorly.SESSION_KEY,
-          limit: 4,
+          limit: number,
           text_query: query
         },
         function(response, status) {
