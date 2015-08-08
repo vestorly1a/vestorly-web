@@ -17,11 +17,11 @@ function parse(text) {
              .replace(/&#8230;/g, "...");
 }
 
-function display(number, query) {
+function display(number, query, sort_criteria) {
   var query = document.getElementsByClassName('searchBar')[0].value;
   var articlesSection = document.getElementById('articles');
   articlesSection.innerHTML = "";
-  Vestorly.getArticle(number, query, function(data) {
+  Vestorly.getArticle(number, query, sort_criteria, function(data) {
     var articles = data['articles'];
 
     if (articles.length == 0) {
@@ -47,8 +47,12 @@ function display(number, query) {
     while (articlesQueue.length != 0) {
       var currentArticle = articlesQueue.dequeue();
 
+      var contentUrl = document.createElement('a');
+      contentUrl.setAttribute('href', currentArticle.external_url);
+
       var contentArticle = document.createElement('div');
       contentArticle.setAttribute('class', 'contentArticle');
+      contentUrl.appendChild(contentArticle);
 
       var articleContainer = document.createElement('div');
       articleContainer.setAttribute('class', 'articleContainer');
@@ -85,14 +89,12 @@ function display(number, query) {
 
       var articleSourceLink = document.createElement('a');
       articleSourceLink.setAttribute(
-          'href', currentArticle.external_url_source);
+          'href', currentArticle.external_url);
+      articleSourceLink.setAttribute('class',"sourceLink");
       var articleSourceLinkText = document.createTextNode(
-          "Sourced from: " + parse(currentArticle.external_url_source));
+          "Sourced from: " + parse(currentArticle.external_url));
       articleSourceLink.appendChild(articleSourceLinkText);
       articleContainer.appendChild(articleSourceLink);
-
-      var hr = document.createElement('hr');
-      articlesSection.appendChild(hr);
     }
   });
 }

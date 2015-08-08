@@ -34,19 +34,28 @@ Vestorly.getSessionKey = function(callback) {
   });
 };
 
-Vestorly.getArticle = function(number, query, callback) {
+Vestorly.getArticle = function(number, query, sort_criteria, callback) {
   if (!Vestorly.SESSION_KEY) {
     throw new Error('Session key was non initialized!');
   }
-  $.get(Vestorly.BASE_URL + '/articles',
-        {
-          vestorly_auth: Vestorly.SESSION_KEY,
-          limit: number,
-          text_query: query
-        },
+  if (sort_criteria) {
+    var params = {
+        vestorly_auth: Vestorly.SESSION_KEY,
+        limit: number,
+        text_query: query,
+        sort_direction: "asc",
+        sort_by: sort_criteria
+    };
+  } else {
+    var params = {
+        vestorly_auth: Vestorly.SESSION_KEY,
+        limit: number,
+        text_query: query,
+    };
+  }
+
+  $.get(Vestorly.BASE_URL + '/articles', params,
         function(response, status) {
     callback(response);
   });
 };
-
-
