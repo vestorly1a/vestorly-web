@@ -1,27 +1,80 @@
+
 <!DOCTYPE html>
-
 <html>
-
   <head>
-    <script src='bower_components/async/dist/async.min.js'></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <title>Vestorly</title>
+    <link rel="stylesheet" href="https://d1vr3psldp6mdy.cloudfront.net/assets/labs-00989967333c6740139cd05ca46c48a1.css" data-name="app-styles">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic" rel="stylesheet" type="text/css">
+
+    <script src="bower_components/async/dist/async.min.js"></script>
     <script src="scripts/jquery-1.11.3.min.js"></script>
     <script src="scripts/Vestorly.js"></script>
-    <script>
-      Vestorly.getSessionKey();
+            <script>
 
-      function fuckthis() {
-        Vestorly.getArticle(5, "python", function(data) {
-          document.write(JSON.stringify(data));
-        });
-      }
-    </script>
+            Vestorly.getSessionKey();
+
+            function my() {
+
+            console.log('test');
+              var query = document.getElementsByClassName('searchBar')[0].value;
+              var articlesSection = document.getElementById('articles');
+              Vestorly.getArticle(5, query, function(data) {
+                console.log(data);
+                articlesSection.innerHTML(data);
+              });
+            }
+          </script>
   </head>
-
   <body>
-    <button onclick='fuckthis()'>Testing</button>
+    <div class="header">
+      <div class="headerTab">
+        <center>
+          <div class="logo">
+          Vestorly1A
+          </div>
+        </center>
+        <div class="rightHeader">
+          <a href="#" class="tabBar active">Home</a>
+          <a href="#" class="tabBar">Recent Post</a>
+          <a href="#" class="tabBar">Treding</a>
+          <form class="searchComponent" >
+            <input type="text"
+                   name="search"
+                   class="searchBar"
+                   placeholder="Search here">
+            <img src='image/search.png' type="submit" name="search" class="buttonSearch" onclick="my()">
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id='articles'>
+      <div class="contentArticle">
+        <a href="article.html" class="cArticle">
+        <div class="articleImage">
+          <img src="image/test.jpg" class="articleImage">
+          <p class="articleTitle">Lorem Ipsum is simply dummy text of the printing</p>
+          <p class="articleDetail">Lorem Ipsum is simply dummy text of the printing</p>
+          <a href="#">Read more</a>
+        </div>
+      </a>
+      </div>
+      <div class="contentArticle">
+        <div class="articleImage">
+          <img src="image/test.jpg" class="articleImage">
+          <p class="articleTitle">Lorem Ipsum is simply dummy text of the printing</p>
+          <p class="articleDetail">Lorem Ipsum is simply dummy text of the printing</p>
+          <a href="#">Read more</a>
+        </div>
+      </div>
+    </div>
 
   </body>
-
   <script>
   </script>
+
 </html>
