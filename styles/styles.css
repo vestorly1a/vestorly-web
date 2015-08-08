@@ -4,11 +4,11 @@ body {
 }
 
 a, a:visited {
-  color: green;
+  color: #00585F;
 }
 
 a:hover {
-  color: blue;
+  color: #009393;
 }
 
 hr {
@@ -20,6 +20,7 @@ hr {
 .header{
   margin-left:20%;
   margin-right: 20%;
+  margin-top: 5%;
 
 }
 .logo{
@@ -28,11 +29,7 @@ hr {
   font-weight: bold;
 
 }
-.rightHeader{
-  float:left;
-  position: relative;
 
-}
 .searchComponent{
   float:right;
   margin-left: 10;
@@ -49,17 +46,18 @@ hr {
 
 }
 .tabBar{
-  margin-right: 20px;
+	margin-left: 20px;
+
 }
 .tabBar .active{
   margin-right: 20px;
   font-weight: bold;
 }
 .contentArticle{
-  margin-top: 10px;
   margin-left: 20%;
   margin-right: 20%;
-  margin-bottom: 2%;
+  margin-bottom: 3%;
+  background-color: white;
 }
 .buttonSearch{
   width: 25px;
@@ -73,6 +71,10 @@ hr {
 
 .articleImage{
   width:100%;
+
+}
+.articleContainer{
+  padding:2%;
 }
 
 .articleTitle{
@@ -102,5 +104,14 @@ hr {
   height: 40px;
   border-radius: 20px;
   margin-right: 10px;
+
+}
+hr{
+	margin-left: 20%;
+	margin-right:20%;
+	width:60%;
+}
+.sourceLink{
+	text-align: right;
 
 }
