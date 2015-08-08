@@ -64,10 +64,12 @@ hr {
 .articleImage{
   width:100%;
 }
+
 .articleTitle{
   font-size: 16pt;
   font-weight: bold;
-
+  margin: auto;
+  text-align: center;
 }
 .articleDetail{
   font-size: 14pt;

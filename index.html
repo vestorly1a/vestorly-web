@@ -18,16 +18,36 @@
         articlesSection.innerHTML = "";
         Vestorly.getArticle(5, query, function(data) {
           var articles = data['articles'];
+
+          if (articles.length == 0) {
+            articlesSection.innerHTML = "No results found. Try a different query.";
+          }
+
           for (var i = 0; i < articles.length; ++i) {
+            console.log(articles[i]);
+
+            var articleTitle = document.createElement('div');
+            articleTitle.setAttribute('class', 'articleTitle');
+            var articleTitleText = document.createTextNode(
+                articles[i].title);
+            articleTitle.appendChild(articleTitleText);
+
+            var articleImage = document.createElement('img');
+            articleImage.setAttribute(
+                'src', 'https:' + articles[i].image_url);
+            articleImage.setAttribute('class', 'articleImage');
+
             var contentArticle = document.createElement('div');
             contentArticle.setAttribute('class', 'contentArticle');
             var contentArticleText = document.createTextNode(
                 articles[i].body);
             contentArticle.appendChild(contentArticleText);
             var hr = document.createElement('hr');
+
+            articlesSection.appendChild(articleTitle);
+            articlesSection.appendChild(articleImage);
             articlesSection.appendChild(contentArticle);
             articlesSection.appendChild(hr);
-            console.log('hit');
           }
         });
         return false;
