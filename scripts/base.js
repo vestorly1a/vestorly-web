@@ -33,6 +33,9 @@ function display(number, query, sort_criteria) {
           var searchTerms = getQueryTerms();
           var aHits = 0;
           var bHits = 0;
+          // The original query counts more than historical queries.
+          aHits += a.body.count(query) * 5;
+          bHits += b.body.count(query) * 5;
           for (var i = 0; i < searchTerms.length; ++i) {
             aHits += a.body.count(searchTerms[i]);
             bHits += b.body.count(searchTerms[i]);
