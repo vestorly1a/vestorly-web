@@ -30,6 +30,11 @@
                 articles[i].title);
             articleTitle.appendChild(articleTitleText);
 
+            var articleImage = document.createElement('img');
+            articleImage.setAttribute(
+                'src', 'https:' + articles[i].image_url);
+            articleImage.setAttribute('class', 'articleImage');
+
             var contentArticle = document.createElement('div');
             contentArticle.setAttribute('class', 'contentArticle');
             var contentArticleText = document.createTextNode(
@@ -38,6 +43,7 @@
             var hr = document.createElement('hr');
 
             articlesSection.appendChild(articleTitle);
+            articlesSection.appendChild(articleImage);
             articlesSection.appendChild(contentArticle);
             articlesSection.appendChild(hr);
           }
